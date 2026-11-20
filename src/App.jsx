@@ -94,7 +94,7 @@ function App() {
             )}
             <div className="info">
               <span className="site">{p.site}</span>
-              <h3>{p.title}</h3>
+              <h3 title={p.title}>{p.title}</h3>
               <p className="price">{formatPrice(p.price)}</p>
               <span>{p.date}</span>
             </div>

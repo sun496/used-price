@@ -1,34 +1,33 @@
-export const products = [
-  {
-    title: "아이폰 15 128GB",
-    price: 650000,
+import watchData from "./data/182858_072_갤럭시워치8.json";
+import cdData from "./data/182948_549_백넘버_back_number_cd.json";
+import switchData from "./data/182822_078_닌텐도_스위치2.json";
+
+const rawDatasets = [watchData, cdData, switchData];
+
+function flattenDataset(dataset) {
+  const daangnList = (dataset?.sites?.daangn ?? []).map((item) => ({
+    title: item.title,
+    price: item.price,
     site: "당근마켓",
-    url: "https://www.daangn.com/",
-    image: "",
-    date: "2024-06-01" 
-  },
-  {
-    title: "아이폰 15 128GB",
-    price: 620000,
+    url: item.url,
+    image: item.image || "",
+    date: item.posted_at ? item.posted_at.slice(0, 10) : "",
+    region: item.region || "",
+    status: item.status || "판매중",
+  }));
+
+  const bunjangList = (dataset?.sites?.bunjang ?? []).map((item) => ({
+    title: item.title,
+    price: item.price,
     site: "번개장터",
-    url: "https://www.bunjang.co.kr/",
-    image: "",
-    date: "2024-06-02"
-  },
-  {
-    title: "아이폰 15 128GB",
-    price: 580000,
-    site: "중고나라",
-    url: "https://web.joongna.com/",
-    image: "",
-    date: "2024-06-03"
-  },
-  {
-    title: "아이폰 15 128GB",
-    price: 2000000,
-    site: "중고나라",
-    url: "https://web.joongna.com/",
-    image: "",
-    date: "2024-06-04"
-  }
-]
+    url: item.url,
+    image: item.image || "",
+    date: item.posted_at ? item.posted_at.slice(0, 10) : "",
+    region: item.region || "",
+    status: item.status || "판매중",
+  }));
+
+  return [...daangnList, ...bunjangList];
+}
+
+export const products = rawDatasets.flatMap(flattenDataset);
