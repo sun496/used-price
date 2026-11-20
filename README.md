@@ -1,16 +1,42 @@
-# React + Vite
+# 중고 시세 비교 (프론트엔드)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+여러 중고거래 사이트(당근마켓, 번개장터, 중고나라)의 상품 가격을 한곳에서 비교하고,
+적정 시세를 판단할 수 있게 도와주는 사이트의 프론트엔드예요.
 
-Currently, two official plugins are available:
+## 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 상품명 검색
+- 사이트별 필터
+- 가격 낮은순 / 높은순 정렬
+- 시세 요약 (최저가, 최고가, 평균, 중앙값)
+- 상품 카드를 누르면 해당 사이트로 이동
+- 가격 알림 입력 화면 (현재는 화면 안에서만 동작)
 
-## React Compiler
+## 현재 상태
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+지금은 `src/products.js`에 직접 쓴 가짜 데이터 4개로 동작해요.
+크롤링 데이터가 오면 이 파일의 데이터만 교체하면 돼요.
 
-## Expanding the Oxlint configuration
+## 데이터 형태
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+상품 하나는 아래 형태예요.
+
+{ title, price, site, url, image, date }
+
+## 실행 방법
+
+npm install
+npm run dev
+
+터미널에 나오는 주소(http://localhost:5173)를 브라우저로 열어요.
+
+## 사용 기술
+
+React, Vite
+
+## 파일 설명
+
+- src/App.jsx: 메인 화면 (검색, 필터, 정렬, 카드 목록)
+- src/AlertForm.jsx: 가격 알림 입력 화면
+- src/summary.js: 시세 계산 함수 (평균, 중앙값 등)
+- src/products.js: 상품 데이터
