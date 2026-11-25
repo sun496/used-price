@@ -1,10 +1,12 @@
 import { useState } from "react";
-import "./App.css";
-import { products } from "./products";
-import { formatPrice, getSummary } from "./summary";
-import AlertForm from "./AlertForm";
+import "./App.css"; // 화면 디자인 가져오기
+import { products } from "./products"; //상품 데이터 가져오기
+import { formatPrice, getSummary } from "./summary"; //가격을 보기좋은 형태로 변환
+import AlertForm from "./AlertForm"; //가격알림 컴포넌트 가져오기
+import Header from "./Header"; //헤더 컴포넌트 가져오기
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false); // 알림 팝업 열림/닫힘
   const [keyword, setKeyword] = useState("");
   const [sortOrder, setSortOrder] = useState("default");
   const [selectedSite, setSelectedSite] = useState("전체");
@@ -25,84 +27,97 @@ function App() {
 
   const summary = filtered.length > 0 ? getSummary(filtered) : null;
 
-  return (
-    <div className="page">
-      <h1>중고 시세 비교</h1>
-
-      <input
-        className="search"
-        type="text"
-        placeholder="상품명을 검색하세요 (예: 아이폰)"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
+  return ( // JSX 코드 시작
+    <>
+      <Header
+        keyword={keyword}
+        onKeywordChange={setKeyword}
+        count={filtered.length}
+        onAlertClick={() => setIsOpen(true)}
       />
 
-      <div className="filters">
-        {sites.map((site) => (
-          <button
-            key={site}
-            className={site === selectedSite ? "chip active" : "chip"}
-            onClick={() => setSelectedSite(site)}
-          >
-            {site}
-          </button>
-        ))}
-      </div>
-
-      {summary ? (
-        <section className="summary">
-          <div className="stat">
-            <span className="label">최저가</span>
-            <strong>{formatPrice(summary.lowest)}</strong>
+      <div className="page">
+        <div className="toolbar">
+          <div className="filters">
+            {sites.map((site) => ( // 사이트 필터 버튼 생성
+              <button
+                key={site}
+                className={site === selectedSite ? "chip active" : "chip"}
+                onClick={() => setSelectedSite(site)}
+              >
+                {site}
+              </button>
+            ))}
           </div>
-          <div className="stat">
-            <span className="label">최고가</span>
-            <strong>{formatPrice(summary.highest)}</strong>
-          </div>
-          <div className="stat">
-            <span className="label">평균</span>
-            <strong>{formatPrice(summary.average)}</strong>
-          </div>
-          <div className="stat">
-            <span className="label">중앙값</span>
-            <strong>{formatPrice(summary.median)}</strong>
-          </div>
-        </section>
-      ) : (
-        <p>검색 결과가 없어요.</p>
-      )}
 
-      <p>검색 결과 {filtered.length}개</p>
+          <label className="sort-wrap">
+            정렬
+            <select
+              className="sort"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="default">기본순</option>
+              <option value="low">가격 낮은순</option>
+              <option value="high">가격 높은순</option>
+            </select>
+          </label>
+        </div>
 
-      <select
-        className="sort"
-        value={sortOrder}
-        onChange={(e) => setSortOrder(e.target.value)}
-      >
-        <option value="default">기본순</option>
-        <option value="low">가격 낮은순</option>
-        <option value="high">가격 높은순</option>
-      </select>
-
-      <div className="grid">
-        {sorted.map((p, i) => (
-          <a className="card" key={i} href={p.url} target="_blank" rel="noreferrer">
-            {p.image ? (
-              <img src={p.image} alt={p.title} />
-            ) : (
-              <div className="noimg">이미지 준비 중</div>
-            )}
-            <div className="info">
-              <span className="site">{p.site}</span>
-              <h3 title={p.title}>{p.title}</h3>
-              <p className="price">{formatPrice(p.price)}</p>
-              <span>{p.date}</span>
+        {summary ? (
+          <section className="summary">
+            <div className="stat">
+              <span className="label">최저가</span>
+              <strong>{formatPrice(summary.lowest)}</strong>
             </div>
-          </a>
-        ))}
+            <div className="stat">
+              <span className="label">최고가</span>
+              <strong>{formatPrice(summary.highest)}</strong>
+            </div>
+            <div className="stat">
+              <span className="label">평균</span>
+              <strong>{formatPrice(summary.average)}</strong>
+            </div>
+            <div className="stat">
+              <span className="label">중앙값</span>
+              <strong>{formatPrice(summary.median)}</strong>
+            </div>
+          </section>
+        ) : (
+          <p>검색 결과가 없어요.</p>
+        )}
+
+        <div className="grid">
+          {sorted.map((p, i) => (
+            <a className="card" key={i} href={p.url} target="_blank" rel="noreferrer">
+              {p.image ? (
+                <img src={p.image} alt={p.title} />
+              ) : (
+                <div className="noimg">이미지 준비 중</div>
+              )}
+              <div className="info">
+                <span className="site">{p.site}</span>
+                <h3 title={p.title}>{p.title}</h3>
+                <p className="price">{formatPrice(p.price)}</p>
+                <span>{p.date}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {isOpen && (
+          <div className="modal-overlay" onClick={() => setIsOpen(false)}>
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+              <h2>목표 가격 알림</h2>
+              <AlertForm />
+              <button className="modal-close" onClick={() => setIsOpen(false)}>
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-      <AlertForm />
-    </div>
+    </>
   );
 }
 

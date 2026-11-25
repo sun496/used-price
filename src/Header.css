@@ -1,0 +1,132 @@
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* 위쪽 흰색 바 */
+.topbar {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: #222;
+  opacity: 0.2;
+}
+
+.tagline {
+  font-size: 13px;
+  color: #555;
+}
+
+.header-alert-btn {
+  padding: 8px 14px;
+  font-size: 13px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 검색 영역 (회색 배경) */
+.hero {
+  padding: 32px 0 20px;
+}
+
+.hero h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+}
+
+.search-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.search-box:focus-within {
+  border-color: #ff6f0f;
+}
+
+.search-box input {
+  flex: 1;
+  height: 48px;
+  font-size: 15px;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.search-btn {
+  padding: 0 32px;
+  font-size: 15px;
+  color: white;
+  background: #ff6f0f;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.result-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.result-count {
+  margin: 0;
+  font-size: 16px;
+}
+
+.result-desc {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #888;
+}
+
+.preview-link {
+  font-size: 12px;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search-icon {
+  color: #666;
+  flex-shrink: 0;
+}
