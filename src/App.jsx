@@ -108,7 +108,7 @@ function App() {
         {isOpen && (
           <div className="modal-overlay" onClick={() => setIsOpen(false)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
-              <h2>목표 가격 알림</h2>
+              <h2>가격 알림 설정</h2>
               <AlertForm />
               <button className="modal-close" onClick={() => setIsOpen(false)}>
                 닫기

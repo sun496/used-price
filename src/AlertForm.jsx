@@ -20,7 +20,6 @@ function AlertForm() {
 
   return (
     <section className="alert-box">
-      <h2>가격 알림 설정</h2>
 
       <div className="alert-inputs">
         <input

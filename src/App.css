@@ -263,3 +263,36 @@
 .summary {
   margin-bottom: 28px;
 }
+
+/* 팝업 안의 AlertForm은 카드 모양 없애기 */
+.modal .alert-box {
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.modal h2 {
+  margin: 0 0 20px;
+}
+
+/* 입력창과 버튼을 세로로 꽉 차게 */
+.modal .alert-inputs {
+  flex-direction: column;
+}
+
+.modal .alert-input {
+  flex: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal .alert-btn {
+  width: 100%;
+}
+
+/* 닫기 버튼은 오른쪽 아래로 */
+.modal-close {
+  display: block;
+  margin: 20px 0 0 auto;
+}
