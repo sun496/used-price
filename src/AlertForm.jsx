@@ -25,7 +25,7 @@ function AlertForm() {
         <input
           className="alert-input"
           type="text"
-          placeholder="상품명 (예: 아이폰 15)"
+          placeholder="상품명"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
