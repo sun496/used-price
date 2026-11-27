@@ -1,8 +1,12 @@
+import { useState } from "react";
 import "./Header.css";
 
-function Header({ keyword, onKeywordChange, count, onAlertClick }) {
+function Header({ onSearch, count, onAlertClick }) {
+  const [input, setInput] = useState("");
+
   function handleSubmit(e) {
     e.preventDefault();
+    onSearch(input);
   }
 
   return (
@@ -42,8 +46,8 @@ function Header({ keyword, onKeywordChange, count, onAlertClick }) {
 </svg>
               <input
                 type="text"
-                value={keyword}
-                onChange={(e) => onKeywordChange(e.target.value)}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 placeholder="상품명을 검색하세요"
               />
             </div>
