@@ -5,6 +5,8 @@ import switchData from "./data/182822_078_닌텐도_스위치2.json";
 const rawDatasets = [watchData, cdData, switchData];
 
 function flattenDataset(dataset) {
+  const category = dataset?.keyword ?? ""; // 데이터 수집 때 쓴 검색어 (예: "닌텐도 스위치2")
+
   const daangnList = (dataset?.sites?.daangn ?? []).map((item) => ({
     title: item.title,
     price: item.price,
@@ -14,6 +16,7 @@ function flattenDataset(dataset) {
     date: item.posted_at ? item.posted_at.slice(0, 10) : "",
     region: item.region || "",
     status: item.status || "판매중",
+    category,
   }));
 
   const bunjangList = (dataset?.sites?.bunjang ?? []).map((item) => ({
@@ -25,6 +28,7 @@ function flattenDataset(dataset) {
     date: item.posted_at ? item.posted_at.slice(0, 10) : "",
     region: item.region || "",
     status: item.status || "판매중",
+    category,
   }));
 
   return [...daangnList, ...bunjangList];
