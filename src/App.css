@@ -42,11 +42,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-}
-
+.card:hover,
 .card:active {
   transform: translateY(-2px);
 }
@@ -538,7 +534,8 @@
 }
 
 .dv-item-title {
-  padding: 8px;
+  margin: 8px;               /* ← padding: 8px; 를 이걸로 교체 */
+  overflow-wrap: anywhere;   /* ← 추가: 띄어쓰기 없는 긴 글자도 줄바꿈 */
   font-size: 12px;
   line-height: 1.4;
   display: -webkit-box;

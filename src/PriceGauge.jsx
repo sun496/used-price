@@ -30,8 +30,8 @@ function PriceGauge({ range, focused }) {
 
       <p className="gauge-hint">
         {focused
-          ? `선택한 상품 ${formatPrice(focused.price)}`
-          : "상품에 마우스를 올리거나 누르면 가격 위치가 표시돼요"}
+          ? `현재 상품 ${formatPrice(focused.price)}`
+          : "스크롤하거나 상품을 누르면 가격 위치가 표시돼요"}
         <span className="gauge-note"> · 너무 싼/비싼 값(하위·상위 5%)은 범위에서 제외</span>
       </p>
     </div>

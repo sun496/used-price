@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css"; // 화면 디자인 가져오기
 import { products } from "./products"; //상품 데이터 가져오기
 import { formatPrice, getSummary, getGaugeRange } from "./summary"; //가격 변환 + 시세 계산
@@ -44,6 +44,31 @@ function App() {
   const hasKeyword = keyword.trim() !== "";
   const range = hasKeyword && filtered.length > 0 ? getGaugeRange(filtered) : null;
   const median = filtered.length > 0 ? getSummary(filtered).median : null;
+
+  // 스크롤하면 화면 가운데에 걸친 카드의 가격 위치로 게이지 동그라미를 이동
+  useEffect(() => {
+    if (selected || !range) return; // 상세 화면이거나 게이지가 없으면 안 함
+
+    const cards = document.querySelectorAll(".grid .card");
+    const visible = new Set(); // 화면 가운데 띠에 걸쳐 있는 카드 번호들
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const i = Number(entry.target.dataset.index);
+          if (entry.isIntersecting) visible.add(i);
+          else visible.delete(i);
+        });
+        if (visible.size > 0) {
+          setFocused(sorted[Math.min(...visible)]); // 같은 줄이면 가장 왼쪽 카드
+        }
+      },
+      { rootMargin: "-45% 0px -45% 0px" } // 화면 세로 가운데 10%만 감지
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect(); // 목록이 바뀌면 정리
+  }, [selected, keyword, sortOrder, selectedSite, includeWords, excludeWords]);
 
   function handleSearch(value) {
     setKeyword(value);
@@ -110,13 +135,13 @@ function App() {
 
         {!selected && (
         <div className="grid">
-          {sorted.map((p) => (
+          {sorted.map((p, i) => (
             <div
               className="card"
+              data-index={i}
               key={p.url}
               role="button"
               tabIndex={0}
-              onMouseEnter={() => setFocused(p)}
               onClick={() => handleCardClick(p)}
               onKeyDown={(e) => e.key === "Enter" && handleCardClick(p)}
             >
