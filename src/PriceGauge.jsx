@@ -19,7 +19,6 @@ function PriceGauge({ range, focused }) {
       </div>
 
       <div className="gauge-bar" style={{ background: `linear-gradient(90deg, ${stops})` }}>
-        <span className="gauge-median" style={{ left: `${medianPct}%` }} />
         {pct !== null && (
           <span
             className="gauge-marker"
